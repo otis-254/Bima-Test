@@ -15,13 +15,13 @@ const caseDetails = {
   intro: "We are proud to report another breakthrough for insurance consumers!\nAfter initially rejecting a valid Last Expense claim, Waumini Insurance Brokers and their underwriter Guardian Assurance have been forced to settle in full — following relentless advocacy and legal pressure.",
   caseSummary: [
     "PM took out a last expense cover on the life of her father. Premium was paid on 14 October 2021, and her father sadly passed away on 12 January 2022 — the 91st day after inception.",
-    "Waumini repudiated the claim, arguing that death occurred “within the 3-month waiting period.”",
+    'Waumini repudiated the claim, arguing that death occurred "within the 3-month waiting period.',
   ],
   catchPoint: "But here's the catch:",
   catchDetails: [
-    "- The Policyholder's waiting period was defined in days (30 days)",
-    "- The Dependent's waiting period was stated vaguely as "3 months"",
-    "- There is no constant definition of a month in days. As shown below, "3 months" can mean 89 to 92 days depending on the start date. January to April = 91 days.",
+    " The Policyholder's waiting period was defined in days (30 days)",
+    'The Dependent\'s waiting period was stated vaguely as "3 months"',
+    'There is no constant definition of a month in days. As shown below, "3 months" can mean 89 to 92 days depending on the start date. January to April = 91 days.',
   ],
   monthDaysTable: [
     { month: "October", days: 92 },
@@ -39,7 +39,7 @@ const caseDetails = {
     "✅ This was a legal obligation.",
   ],
   whyMatters: "Why this matters:",
-  whyMattersDetails: "If you or a loved one has had a claim denied under vague "waiting period" clauses — you may be entitled to full compensation.",
+  whyMattersDetails: 'If you or a loved one has had a claim denied under vague "waiting period" clauses — you may be entitled to full compensation.',
   callToAction: "Are you affected?",
   contactMethods: [
     "- DM BIMA-AID or email",
