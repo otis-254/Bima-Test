@@ -5,23 +5,7 @@ import Link from 'next/link'
 import { AnimatedSection } from '@/components/AnimatedSection'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 import { BackgroundAnimation } from '@/components/BackgroundAnimation'
-import { ImageCarousel } from '@/components/ImageCarousel'
 import '@/styles/animations.css'
-
-const caseImages = [
-  {
-    src: '/images/Case 001.jpg',
-    alt: 'Medical Insurance Claim Documentation'
-  },
-  {
-    src: '/images/Case 003.jpg',
-    alt: 'Hospital Records and Bills'
-  },
-  {
-    src: '/images/case 002.jpg',
-    alt: 'Insurance Policy Documents'
-  }
-]
 
 export default function MedicalInsuranceCase() {
   return (
@@ -68,9 +52,6 @@ export default function MedicalInsuranceCase() {
             <AnimatedSection delay={0.3}>
               <div className="bg-white rounded-xl shadow-lg p-8">
                 <h3 className="text-2xl font-bold mb-4">Case Documentation</h3>
-                <div className="mb-8">
-                  <ImageCarousel images={caseImages} />
-                </div>
                 <p className="text-sm text-gray-500 mt-2">
                   Click through the images above to view the key documents that helped win this case
                 </p>
