@@ -17,8 +17,8 @@ export function WhatsAppButton() {
   }, [])
 
   const handleWhatsAppClick = () => {
-    const phoneNumber = '254790026360' // Your WhatsApp number (without + or spaces)
-    const message = 'Hello BIMA-AID Team, I am interested in your insurance claim assistance services. Could you please provide me with more information about how you can help with my claim?'
+    const phoneNumber = '254714531574' // Your WhatsApp number (without + or spaces)
+    const message = 'Hello BIMA-AID Team,I wish to secure your Assistance. What do I do?'
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
   }

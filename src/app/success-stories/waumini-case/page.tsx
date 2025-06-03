@@ -14,7 +14,7 @@ const caseDetails = {
   issuedBy: "BIMA-AID – Insurance Rights Advocacy Group",
   date: "22nd May 2025",
   ref: "REF: MILIMANI SCCCOMM/E9846/2023",
-  intro: "We are proud to report another breakthrough for insurance consumers!\nAfter initially rejecting a valid Last Expense claim, Waumini Insurance Brokers and their underwriter Guardian Assurance have been forced to settle in full — following relentless advocacy and legal pressure.",
+  intro: "We are proud to report another breakthrough for insurance consumers!\nAfter initially rejecting a valid Last Expense claim, Waumini Insurance Brokers and their underwriter Prudential Assurance have been forced to settle in full — following relentless advocacy and legal pressure.",
   caseSummaryText: [
     "PM took out a last expense cover on the life of her father. Premium was paid on 14 October 2021, and her father sadly passed away on 12 January 2022 — the 91st day after inception.",
     "Waumini repudiated the claim, arguing that death occurred \"within the 3-month waiting period.\"",

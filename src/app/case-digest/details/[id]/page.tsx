@@ -9,7 +9,7 @@ import ImageCarousel from '@/components/ImageCarousel'; // Import the carousel c
 
 // Placeholder data for a single case study (replace with actual data fetching based on id)
 const caseStudyDetails = {
-  title: "Medical Insurance Claim Victory",
+  title: "Life Assurance Claim Victory",
   ref: "Case Reference",
   heroImage: "/images/Jubilee 002.png", 
   sections: [

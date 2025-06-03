@@ -416,7 +416,7 @@ export default function Home() {
           <AnimatedSection>
             <div className="text-center max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
-                Ready to Share Your Success Story?
+                Ready to Share Your Problem?
               </h2>
               <p className="text-lg text-gray-700 mb-8">
                 Contact us today and let us help you fight for your rightful insurance claim.

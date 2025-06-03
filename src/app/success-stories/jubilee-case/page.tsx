@@ -12,7 +12,7 @@ const caseDetails = {
   issuedBy: "BIMA-AID – Insurance Rights Advocacy Group",
   date: "1st May 2025",
   ref: "REF: MILIMANI COMMERCIAL: CASE NO. SCCCOMM/E1213/2024 – JFO VS JUBILEE INSURANCE COMPANY LTD",
-  intro: "We are pleased to announce a landmark victory for policyholders!\nAfter years of denying payouts under the Fanaka Plan, Jubilee Life Insurance has been found in breach of the law and ordered to pay.",
+  intro: "We are pleased to announce a landmark victory for policyholders!\nAfter refusing to pay under the Fanaka Plan, Jubilee Life Insurance has been found in breach of the law and ordered to pay.",
   caseBackground: "JFO (see file), who paid premiums for 42 months, had been unlawfully denied his surrender value after Jubilee claimed he needed to complete the full 5-year term.",
   outcome: [
     "✅ Jubilee must pay him the full surrender value under Section 89 of the Insurance Act",
