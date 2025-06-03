@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { AnimatedSection } from '@/components/AnimatedSection'
 import '@/styles/animations.css'
 import { XCircleIcon, QuestionMarkCircleIcon, HandRaisedIcon, BuildingOfficeIcon, UserGroupIcon, ShieldExclamationIcon, CheckCircleIcon, UserIcon, TrophyIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 
 const values = [
   {
@@ -400,69 +401,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Our Track Record Section */}
+      {/* Ready to Share Section */}
       <section className="relative py-20 overflow-hidden">
-        {/* Background Video */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/videos/video.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        {/* Dark Overlay for text visibility */}
-        <div className="absolute inset-0 bg-black opacity-60"></div>
+        {/* Animated Balls Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-accent-teal/10 rounded-full animate-float-slow" />
+          <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-primary/10 rounded-full animate-float-medium" />
+          <div className="absolute top-1/3 right-1/3 w-32 h-32 bg-accent-teal/10 rounded-full animate-float-fast" />
+          <div className="absolute top-2/3 left-1/3 w-40 h-40 bg-primary/10 rounded-full animate-float-slow" />
+          <div className="absolute bottom-1/4 left-1/4 w-56 h-56 bg-accent-teal/10 rounded-full animate-float-medium" />
+        </div>
 
-        <div className="container-custom relative z-10 text-center">
+        <div className="container-custom relative z-10">
           <AnimatedSection>
-            <div className="flex items-center justify-center space-x-4 mb-12">
-              <div className="h-[3px] w-24 bg-primary/20"></div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white">Our Track Record</h2>
-              <div className="h-[3px] w-24 bg-primary/20"></div>
-            </div>
-
-            {/* Testimonial/Statement */}
-            <p className="text-xl md:text-2xl font-semibold text-white mb-12 max-w-3xl mx-auto">
-              We have won every single case we&apos;ve taken on, a testament to our unwavering dedication and expertise in navigating the complexities of insurance law.
-            </p>
-
-            {/* Icon and Badge */}
-            <div className="flex justify-center items-center space-x-6 mb-16">
-              {/* Success Rate Badge */}
-              <div className="bg-accent-teal text-white px-6 py-3 rounded-full text-xl font-bold shadow-lg relative overflow-hidden animated-border">
-                <span className="relative z-10">100% Success Rate</span>
-              </div>
-            </div>
-
-            {/* Feature Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Card 1 */}
-              <div className="bg-white rounded-lg shadow-xl p-6 flex flex-col items-center text-center border border-transparent hover:border-primary transition duration-300">
-                <span className="text-4xl mb-4">🧠</span>
-                <h3 className="text-xl font-bold text-primary mb-2">Smart Strategy</h3>
-                <p className="text-gray-700">
-                  Analyzing every angle to build the strongest case possible.
-                </p>
-              </div>
-              {/* Card 2 */}
-              <div className="bg-white rounded-lg shadow-xl p-6 flex flex-col items-center text-center border border-transparent hover:border-primary transition duration-300">
-                <span className="text-4xl mb-4">💪</span>
-                <h3 className="text-xl font-bold text-primary mb-2">Relentless Pursuit</h3>
-                <p className="text-gray-700">
-                  Fighting tirelessly until justice is served.
-                </p>
-              </div>
-              {/* Card 3 */}
-              <div className="bg-white rounded-lg shadow-xl p-6 flex flex-col items-center text-center border border-transparent hover:border-primary transition duration-300">
-                <span className="text-4xl mb-4">🤝</span>
-                <h3 className="text-xl font-bold text-primary mb-2">On Your Side</h3>
-                <p className="text-gray-700">
-                  Your trusted partner through every step of the process.
-                </p>
-              </div>
+            <div className="text-center max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
+                Ready to Share Your Success Story?
+              </h2>
+              <p className="text-lg text-gray-700 mb-8">
+                Contact us today and let us help you fight for your rightful insurance claim.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-block px-8 py-4 bg-accent-teal text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+              >
+                Get Started
+              </Link>
             </div>
           </AnimatedSection>
         </div>

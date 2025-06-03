@@ -56,16 +56,17 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <Image
-                src="/images/Logo.jpg"
+                src="/images/bima-aid SVG.svg"
                 alt="BIMA-AID Logo"
-                width={40}
-                height={40}
-                className="w-auto h-10"
+                width={60}
+                height={60}
+                className="w-auto h-16 [filter:brightness(0)_invert(1)]"
               />
               {/* <span className="text-xl font-bold">BIMA-AID</span> */}
             </div>
             <p className="text-gray-300 mb-4">
-              Expert assistance for policyholders facing unfair claim rejections. We help you win against insurance companies.
+              Expert assistance for policyholders facing unfair claim rejections. 
+               We help you Get Paid.
             </p>
             <div className="flex space-x-6">
               {footerNavigation.social.map((item) => (

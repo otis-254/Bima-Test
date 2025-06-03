@@ -40,7 +40,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src="/images/Logo.jpg"
+              src="/images/bima-aid SVG.svg"
               alt="BIMA-AID Logo"
               width={40}
               height={40}

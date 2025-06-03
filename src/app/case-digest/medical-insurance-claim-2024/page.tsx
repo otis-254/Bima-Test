@@ -36,7 +36,7 @@ export default function MedicalInsuranceCase() {
               Back to Case Digest
             </Link>
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-              Medical Insurance Claim Victory
+              Life Assurance Claim Victory
             </h1>
             <p className="text-lg md:text-xl text-gray-200">
               A Landmark Case in Health Insurance Claims

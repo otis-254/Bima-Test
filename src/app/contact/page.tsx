@@ -1,12 +1,19 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AnimatedSection } from '@/components/AnimatedSection'
 import '@/styles/animations.css'
 import { EnvelopeIcon, PhoneIcon, MapPinIcon, GlobeAltIcon, ClockIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
+import emailjs from '@emailjs/browser'
+import SuccessDialog from '@/components/SuccessDialog'
 
 export default function ContactPage() {
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init("12pmQhGYvWzg9n1Z0");
+  }, []);
+
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -18,11 +25,133 @@ export default function ContactPage() {
     claimDetails: '',
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [policyFile, setPolicyFile] = useState<File | null>(null);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [submissionMessage, setSubmissionMessage] = useState<string | null>(null);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log(formData)
+
+    setIsSubmitting(true);
+    setSubmissionStatus('loading');
+    setSubmissionMessage(null);
+
+    try {
+      // Convert files to base64 if they exist
+      let correspondenceFileBase64 = '';
+      let policyFileBase64 = '';
+      
+      if (uploadedFile) {
+        correspondenceFileBase64 = await convertFileToBase64(uploadedFile);
+      }
+      if (policyFile) {
+        policyFileBase64 = await convertFileToBase64(policyFile);
+      }
+
+      // Prepare template parameters
+      const templateParams = {
+        fullName: formData.fullName,
+        phone: formData.phone,
+        whatsapp: formData.whatsapp,
+        email: formData.email,
+        policyNumber: formData.policyNumber,
+        correspondence: formData.correspondence,
+        claimDetails: formData.claimDetails,
+        correspondenceFile: correspondenceFileBase64,
+        policyFile: policyFileBase64,
+        correspondenceFileName: uploadedFile?.name || '',
+        policyFileName: policyFile?.name || '',
+        to_email: 'olelecaleb176@gmail.com',
+      };
+
+      console.log('Sending email with params:', {
+        ...templateParams,
+        correspondenceFile: 'base64 data...',
+        policyFile: 'base64 data...'
+      });
+
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        'service_5eceipe',
+        'template_3i0vuek',
+        templateParams,
+        '12pmQhGYvWzg9n1Z0'
+      );
+
+      console.log('EmailJS response:', response);
+
+      if (response.status === 200) {
+        // Send automated reply to the user
+        try {
+          const autoReplyParams = {
+            to_email: formData.email,
+            fullName: formData.fullName, // Assuming your template uses full name
+          };
+          const autoReplyResponse = await emailjs.send(
+            'service_5eceipe', // Use the same service ID
+            'template_2r19nbc', // Use the automated reply template ID
+            autoReplyParams,
+            '12pmQhGYvWzg9n1Z0' // Use the same public key
+          );
+          console.log('Automated reply sent:', autoReplyResponse);
+        } catch (autoReplyError) {
+          console.error('Failed to send automated reply:', autoReplyError);
+          // Continue with the success flow even if auto-reply fails
+        }
+
+        // Reset the form first
+        setFormData({
+          fullName: '',
+          phone: '',
+          whatsapp: '',
+          email: '',
+          policyNumber: '',
+          correspondence: '',
+          lawyers: '',
+          claimDetails: '',
+        });
+        setUploadedFile(null);
+        setPolicyFile(null);
+        // Reset file inputs
+        const correspondenceFileInput = document.getElementById('correspondenceFile') as HTMLInputElement;
+        if (correspondenceFileInput) correspondenceFileInput.value = '';
+        const policyFileInput = document.getElementById('policyFile') as HTMLInputElement;
+        if (policyFileInput) policyFileInput.value = '';
+
+        // Clear any previous messages and show success dialog
+        setSubmissionStatus('idle');
+        setSubmissionMessage(null);
+        setShowSuccessDialog(true);
+      } else {
+        throw new Error(`Failed to send email: ${response.text}`);
+      }
+    } catch (error: any) {
+      console.error('Submission error details:', {
+        message: error.message,
+        text: error.text,
+        status: error.status,
+        error
+      });
+      setSubmissionStatus('error');
+      setSubmissionMessage(`Failed to submit your case: ${error.message || 'Please try again later.'}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
+
+  // Helper function to convert File to base64
+  const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -31,8 +160,32 @@ export default function ContactPage() {
     })
   }
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setUploadedFile(e.target.files[0]);
+    } else {
+      setUploadedFile(null);
+    }
+  }
+
+  const handlePolicyFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setPolicyFile(e.target.files[0]);
+    } else {
+      setPolicyFile(null);
+    }
+  }
+
   return (
     <main className="pt-20">
+      {/* Success Dialog */}
+      {showSuccessDialog && (
+        <SuccessDialog
+          message="Your case has been submitted successfully! We will contact you within 24 hours."
+          onClose={() => setShowSuccessDialog(false)}
+        />
+      )}
+
       {/* Hero Section */}
       <section className="relative py-32 bg-gradient-to-br from-primary/5 via-accent-teal/5 to-primary/5">
         {/* Background Image */}
@@ -117,6 +270,7 @@ export default function ContactPage() {
                       id="fullName"
                       name="fullName"
                       required
+                      value={formData.fullName}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-teal focus:border-transparent"
                       onChange={handleChange}
                     />
@@ -131,6 +285,7 @@ export default function ContactPage() {
                         id="phone"
                         name="phone"
                         required
+                        value={formData.phone}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-teal focus:border-transparent"
                         onChange={handleChange}
                       />
@@ -144,6 +299,7 @@ export default function ContactPage() {
                         id="whatsapp"
                         name="whatsapp"
                         required
+                        value={formData.whatsapp}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-teal focus:border-transparent"
                         onChange={handleChange}
                       />
@@ -158,6 +314,7 @@ export default function ContactPage() {
                       id="email"
                       name="email"
                       required
+                      value={formData.email}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-teal focus:border-transparent"
                       onChange={handleChange}
                     />
@@ -171,6 +328,7 @@ export default function ContactPage() {
                       id="policyNumber"
                       name="policyNumber"
                       required
+                      value={formData.policyNumber}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-teal focus:border-transparent"
                       onChange={handleChange}
                     />
@@ -183,21 +341,36 @@ export default function ContactPage() {
                       id="correspondence"
                       name="correspondence"
                       rows={3}
+                      value={formData.correspondence}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-teal focus:border-transparent"
                       onChange={handleChange}
                     />
                   </div>
                   <div>
-                    <label htmlFor="lawyers" className="block text-sm font-medium text-gray-700 mb-1">
-                      Communication with Lawyers
+                    <label htmlFor="correspondenceFile" className="block text-sm font-medium text-gray-700 mb-1">
+                      Upload Correspondence File (Optional)
                     </label>
-                    <textarea
-                      id="lawyers"
-                      name="lawyers"
-                      rows={3}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-teal focus:border-transparent"
-                      onChange={handleChange}
+                    <input
+                      type="file"
+                      id="correspondenceFile"
+                      name="correspondenceFile"
+                      className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-accent-teal file:text-white hover:file:bg-accent-teal/90"
+                      onChange={handleFileChange}
                     />
+                    {uploadedFile && <p className="mt-2 text-sm text-gray-600">Selected file: {uploadedFile.name}</p>}
+                  </div>
+                  <div>
+                    <label htmlFor="lawyers" className="block text-sm font-medium text-gray-700 mb-1">
+                      Upload Policy document/ Claim form if available
+                    </label>
+                    <input
+                      type="file"
+                      id="policyFile"
+                      name="policyFile"
+                      className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-accent-teal file:text-white hover:file:bg-accent-teal/90"
+                      onChange={handlePolicyFileChange}
+                    />
+                    {policyFile && <p className="mt-2 text-sm text-gray-600">Selected file: {policyFile.name}</p>}
                   </div>
                   <div>
                     <label htmlFor="claimDetails" className="block text-sm font-medium text-gray-700 mb-1">
@@ -208,16 +381,24 @@ export default function ContactPage() {
                       name="claimDetails"
                       required
                       rows={4}
+                      value={formData.claimDetails}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-teal focus:border-transparent"
                       onChange={handleChange}
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-primary to-accent-teal text-white font-semibold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity duration-300"
+                    className={`w-full bg-gradient-to-r from-primary to-accent-teal text-white font-semibold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity duration-300 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    disabled={isSubmitting}
                   >
-                    Submit Your Case
+                    {isSubmitting ? 'Submitting...' : 'Submit Your Case'}
                   </button>
+
+                  {submissionStatus !== 'idle' && submissionStatus !== 'loading' && (
+                    <div className={`mt-4 text-center text-sm ${submissionStatus === 'success' ? 'text-green-600' : 'text-red-600'}`}>
+                      {submissionMessage}
+                    </div>
+                  )}
                 </form>
               </div>
             </AnimatedSection>

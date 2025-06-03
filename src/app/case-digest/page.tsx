@@ -8,7 +8,7 @@ import '@/styles/animations.css'
 
 const caseDigests = [
   {
-    title: "Medical Insurance Claim Victory",
+    title: "Life Assurance Claim Victory",
     summary: "Successfully overturned a rejected medical claim for a Life Assurance.",
     category: "Health Insurance",
     amount: "Full Settlement",
