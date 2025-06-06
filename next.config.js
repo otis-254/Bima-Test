@@ -25,6 +25,15 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  // Add these new configurations
+  experimental: {
+    scrollRestoration: true,
+  },
+  // Increase the timeout for chunk loading
+  onDemandEntries: {
+    maxInactiveAge: 60 * 60 * 1000,
+    pagesBufferLength: 5,
+  },
 }
 
 module.exports = nextConfig 
