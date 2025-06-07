@@ -14,7 +14,7 @@ const caseDigests = [
     amount: "Full Settlement",
     date: "22nd May 2025",
     ref: "Ref: MILIMANI SCCCOMM/E9846/2023",
-    image: "/images/001.jpg", // Placeholder image path based on image content
+    image: "/images/001.jpg",
     link: "/case-digest/details/medical-insurance-claim"
   }
 ]

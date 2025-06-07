@@ -11,7 +11,7 @@ import ImageCarousel from '@/components/ImageCarousel'; // Import the carousel c
 const caseStudyDetails = {
   title: "Life Assurance Claim Victory",
   ref: "Case Reference",
-  heroImage: "/images/Jubilee 002.png", 
+  heroImage: "/images/jubilee 002.png", 
   sections: [
     {
       heading: "Case Overview",
@@ -30,7 +30,7 @@ const caseStudyDetails = {
   images: [
     "/images/Case 001.jpg", 
     "/images/case 002.jpg",
-    "/images/case 003.jpg"
+    "/images/Case 003.jpg"
   ]
 };
 
